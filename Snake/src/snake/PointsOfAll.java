@@ -16,7 +16,7 @@ public class PointsOfAll {
     public static ArrayList<ArrayList<Integer>> Snakes = new ArrayList<>();
    public  static ArrayList<ArrayList<Integer>> Ladders = new ArrayList<>();
    
-   public static ArrayList<Integer> Teleports = new ArrayList<>(Arrays.asList(42, 25, 80, 98, 31));
+   public static ArrayList<Integer> Teleports = new ArrayList<>(Arrays.asList(41, 24, 79, 97, 30));
 
     
     
@@ -139,20 +139,21 @@ public class PointsOfAll {
   }
   
 static {
-    Snakes.add(new ArrayList<>(Arrays.asList(51, 50, 49, 32, 33)));
-    Snakes.add(new ArrayList<>(Arrays.asList(89, 88, 73, 72, 69, 52, 48)));
-    Snakes.add(new ArrayList<>(Arrays.asList(68, 53, 48, 33, 28, 13, 8)));
-    Snakes.add(new ArrayList<>(Arrays.asList(94, 87, 74, 75, 76, 65, 56, 57, 44, 37, 38, 23, 18)));
-    Snakes.add(new ArrayList<>(Arrays.asList(82, 83, 84, 77, 64, 65, 66, 67, 54)));
-    Snakes.add(new ArrayList<>(Arrays.asList(61, 62, 63, 58, 43, 44, 45, 46, 35, 26)));
+Snakes.add(new ArrayList<>(Arrays.asList(50, 49, 48, 31, 32)));
+Snakes.add(new ArrayList<>(Arrays.asList(88, 87, 72, 71, 68, 51, 47)));
+Snakes.add(new ArrayList<>(Arrays.asList(67, 52, 47, 32, 27, 12, 7)));
+Snakes.add(new ArrayList<>(Arrays.asList(93, 86, 73, 74, 75, 64, 55, 56, 43, 36, 37, 22, 17)));
+Snakes.add(new ArrayList<>(Arrays.asList(81, 82, 83, 76, 63, 64, 65, 66, 53)));
+Snakes.add(new ArrayList<>(Arrays.asList(60, 61, 62, 57, 42, 43, 44, 45, 34, 25)));
 }
 static {
-    Ladders.add(new ArrayList<>(Arrays.asList(3, 19, 21)));
-    Ladders.add(new ArrayList<>(Arrays.asList(86, 96)));
-    Ladders.add(new ArrayList<>(Arrays.asList(8, 12, 30)));
-    Ladders.add(new ArrayList<>(Arrays.asList(46, 54, 68, 72)));
-    Ladders.add(new ArrayList<>(Arrays.asList(57, 63, 79)));
-    Ladders.add(new ArrayList<>(Arrays.asList(26, 34, 48)));
+Ladders.add(new ArrayList<>(Arrays.asList(2, 18, 20)));
+Ladders.add(new ArrayList<>(Arrays.asList(85, 95)));
+Ladders.add(new ArrayList<>(Arrays.asList(7, 11, 29)));
+Ladders.add(new ArrayList<>(Arrays.asList(45, 53, 67, 71)));
+Ladders.add(new ArrayList<>(Arrays.asList(56, 62, 78)));
+Ladders.add(new ArrayList<>(Arrays.asList(25, 33, 47)));
 }
+
 
 }
