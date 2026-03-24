@@ -271,7 +271,7 @@ public class SnakeBoard extends JPanel {
         g2D.drawString("Teleport", 400, 260);
         g2D.drawString("Teleport", 250, 360);
         g2D.drawString("Teleport", 0, 310);
-// Board droaw done&& pawn also  ; 
+// Board droaw done && pawn also  ; 
 
     }
 
@@ -314,7 +314,8 @@ public class SnakeBoard extends JPanel {
         if (startPos == -1) {
             startPos++;
             value--;
-            pawn.setLocation(450 + 12, 450 + 12); // starting point
+            pawn.setLocation(450 + 12, 450 + 12); 
+              Sound.footstepSystem();
             Position.set(index, startPos);
         }
         Position.set(index, startPos + value);
@@ -322,9 +323,7 @@ public class SnakeBoard extends JPanel {
         moveStep(pawn, index, startPos + 1, startPos + value, new Runnable() {
             @Override
             public void run() {
-                // ✅ Eta cholbe animation sesh howar por
-                int U = Position.get(index);
-                System.out.println("Final position: " + U);
+            
 // Snake move;
                 boolean snakeFound = false;
                 for (ArrayList<Integer> snake : PointsOfAll.Snakes) {
@@ -345,9 +344,6 @@ public class SnakeBoard extends JPanel {
                         Position.set(index, 0);
                         Sound.teleportSystem();
                         pawn.setLocation(PointsOfAll.Paths[0]);
-
-                        System.out.println("Teleported directly to start! Current position: " + Position.get(index));
-
                         break;
                     }
                 }
@@ -365,7 +361,6 @@ public class SnakeBoard extends JPanel {
 
             }
         });
-        System.out.println("THis is again ()");
      
 
     }
@@ -406,7 +401,9 @@ public class SnakeBoard extends JPanel {
 
                 if (x == to.x && y == to.y) {
                     timer.stop();
+                     Sound.footstepSystem();
                     moveStep(pawn, index, current + 1, end, onComplete); // next step
+                    
                 }
             }
         });
@@ -424,13 +421,14 @@ public class SnakeBoard extends JPanel {
         Point to = PointsOfAll.Paths[snake.get(i)];
 
         Timer timer = new Timer(10, null);
-
+ Sound.snakeSystem();
         timer.addActionListener(new ActionListener() {
+           
             int x = from.x;
             int y = from.y;
 
             public void actionPerformed(ActionEvent e) {
-
+//Sound.snakeSystem();
                 if (x < to.x) {
                     x++;
                 }
@@ -449,8 +447,8 @@ public class SnakeBoard extends JPanel {
                 if (x == to.x && y == to.y) {
                     timer.stop();
 
-                    // 👉 next step (recursive)
-                    moveSnakeStep(pawn, index, snake, i + 1);
+                  
+                    moveSnakeStep(pawn, index, snake, i + 1); 
                 }
             }
         });

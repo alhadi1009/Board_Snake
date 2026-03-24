@@ -20,13 +20,29 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class Sound {
     private static final URL teleports;
+    private static final URL footstep;
+        private static final URL snakeKing;
+
 
     static {
         teleports = Sound.class.getClassLoader().getResource("snake/GameSound/Teleports.wav");
+        footstep = Sound.class.getClassLoader().getResource("snake/GameSound/Footstep.wav");
+                snakeKing = Sound.class.getClassLoader().getResource("snake/GameSound/Snake.wav");
+
+        
+
     }
 
     public static void teleportSystem() {
         play(teleports);
+    }
+    public static void footstepSystem()
+    {
+        play(footstep);
+    }
+    public static void snakeSystem()
+    {
+        play(snakeKing);
     }
 
     private static void play(URL url) {
