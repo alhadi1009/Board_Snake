@@ -23,7 +23,7 @@ import snake.GameSound.Sound;
 public class SnakeBoard extends JPanel {
 
     private static CircleLabel pawn1, pawn2, pawn3, pawn4;
-    private static ArrayList<Integer> Position = new ArrayList<>();// this is position tracing system 
+    static ArrayList<Integer> Position = new ArrayList<>();// this is position tracing system 
 
     // Draw Static board here 
     public SnakeBoard(int Player) {
@@ -303,19 +303,23 @@ public class SnakeBoard extends JPanel {
     }
 
     public static void PawnMove(int value, int index) {
- Control.ControlSubstance =false;
+        Control.ControlSubstance = false;
 
         CircleLabel pawn = getPawn(index);
         int startPos = Position.get(index);
 
         if (startPos + value > 100) {
-            return; // max 100
+            Control.ControlSubstance = true;
+
+            return;
+            // Write something here ;;
+
         }
         if (startPos == -1) {
             startPos++;
             value--;
-            pawn.setLocation(450 + 12, 450 + 12); 
-              Sound.footstepSystem();
+            pawn.setLocation(450 + 12, 450 + 12);
+            Sound.footstepSystem();
             Position.set(index, startPos);
         }
         Position.set(index, startPos + value);
@@ -323,7 +327,7 @@ public class SnakeBoard extends JPanel {
         moveStep(pawn, index, startPos + 1, startPos + value, new Runnable() {
             @Override
             public void run() {
-            
+
 // Snake move;
                 boolean snakeFound = false;
                 for (ArrayList<Integer> snake : PointsOfAll.Snakes) {
@@ -339,29 +343,40 @@ public class SnakeBoard extends JPanel {
                     }
                 }
 // Teleports moves
-                for (int teleportPoint : PointsOfAll.Teleports) {
-                    if (Position.get(index) == teleportPoint) {
-                        Position.set(index, 0);
-                        Sound.teleportSystem();
-                        pawn.setLocation(PointsOfAll.Paths[0]);
-                        break;
+                if (!snakeFound) {
+                    for (int teleportPoint : PointsOfAll.Teleports) {
+                        if (Position.get(index) == teleportPoint) {
+                            snakeFound = true;
+                            Position.set(index, 0);
+                            Sound.teleportSystem();
+                            pawn.setLocation(PointsOfAll.Paths[0]);
+                            break;
+                        }
+                        if (snakeFound) {
+                            break;
+                        }
                     }
                 }
+
 // Ladder moves
                 if (!snakeFound) {
                     for (ArrayList<Integer> lader : PointsOfAll.Ladders) {
 
                         if (lader.get(0) == Position.get(index)) {
+                            snakeFound = true;
                             Position.set(index, lader.get(lader.size() - 1));
                             moveSnakeStep(pawn, index, lader, 1);
                         }
+                        if (snakeFound) {
+                            break;
+                        }
                     }
+
                 }
-                  Control.ControlSubstance =true;
+                Control.ControlSubstance = true;
 
             }
         });
-     
 
     }
 
@@ -401,9 +416,9 @@ public class SnakeBoard extends JPanel {
 
                 if (x == to.x && y == to.y) {
                     timer.stop();
-                     Sound.footstepSystem();
-                    moveStep(pawn, index, current + 1, end, onComplete); // next step
-                    
+                    Sound.footstepSystem();
+                    moveStep(pawn, index, current + 1, end, onComplete);
+
                 }
             }
         });
@@ -421,9 +436,9 @@ public class SnakeBoard extends JPanel {
         Point to = PointsOfAll.Paths[snake.get(i)];
 
         Timer timer = new Timer(10, null);
- Sound.snakeSystem();
+        Sound.snakeSystem();
         timer.addActionListener(new ActionListener() {
-           
+
             int x = from.x;
             int y = from.y;
 
@@ -447,8 +462,7 @@ public class SnakeBoard extends JPanel {
                 if (x == to.x && y == to.y) {
                     timer.stop();
 
-                  
-                    moveSnakeStep(pawn, index, snake, i + 1); 
+                    moveSnakeStep(pawn, index, snake, i + 1);
                 }
             }
         });

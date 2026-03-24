@@ -61,13 +61,20 @@ public class Snake extends JFrame {
          if(Control.ControlSubstance)
          {
             int sizeofarray= SnakeBoard.SizeOfArray();
+            System.out.println("this is size of array now "+sizeofarray);
              int values = dice.roll();
                 diceResult.setText(String.valueOf(values));
                 System.out.println("Dice rolled: " + values);
                 SnakeBoard.PawnMove(values,CurrentPosition);
+                int tgt=SnakeBoard.Position.get(CurrentPosition);
                 if(values!=6)
                 {
                     CurrentPosition++;
+                    CurrentPosition%=Player;
+                }
+                if(values==6 && tgt+6>=100 )
+                {
+                     CurrentPosition++;
                     CurrentPosition%=Player;
                 }
                 
