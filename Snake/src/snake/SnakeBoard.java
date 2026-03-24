@@ -8,32 +8,57 @@ import java.awt.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
  * @author Al Hadi
  */
 public class SnakeBoard extends JPanel {
-    private  CircleLabel pawn1,pawn2,pawn3,pawn4;
+    private  static CircleLabel pawn1,pawn2,pawn3,pawn4;
+ private static ArrayList<Integer> Position = new ArrayList<>();// this is position tracing system 
+ 
     // Draw Static board here 
-    public SnakeBoard() {
+    public SnakeBoard( int Player) {
     setPreferredSize(new Dimension(550, 550));
      setLayout(null); 
-    pawn1 = new CircleLabel(Color.RED);
+     if(Player>0)
+     {
+         pawn1 = new CircleLabel(Color.RED);
 pawn1.setBounds(500+12, 450+12, 25, 25); // circle size
 this.add(pawn1);
- pawn2 = new CircleLabel(Color.GREEN);
+Position .add(-1);
+     }
+   if(Player>1)
+   {
+        pawn2 = new CircleLabel(Color.GREEN);
 pawn2.setBounds(500+12, 400+12, 25, 25); // circle size
 this.add(pawn2);
-pawn3 = new CircleLabel(Color.BLUE);
+Position.add(-1);
+   }
+if(Player>2)
+{
+    pawn3 = new CircleLabel(Color.BLUE);
 pawn3.setBounds(500+12, 350+12, 25, 25); // circle size
 this.add(pawn3);
- pawn4 = new CircleLabel(Color.decode("#F5279C"));
+Position.add(-1);
+}
+
+if(Player>3)
+{
+    pawn4 = new CircleLabel(Color.decode("#F5279C"));
 pawn4.setBounds(500+12, 300+12, 25, 25); // circle size
 this.add(pawn4);
-// change(pawn2);
+Position.add(-1);
+}
+ 
+ //change(pawn2);
+ System.out.println(Position.size());
 this.repaint();
 
 }
@@ -257,33 +282,10 @@ g2D.drawString("Teleport", 450, 110);
 g2D.drawString("Teleport", 400, 260);
 g2D.drawString("Teleport", 250, 360);
 g2D.drawString("Teleport", 0, 310);
-// Board droaw done ; 
+// Board droaw done&& pawn also  ; 
 
 
 
-
-// Create Pawns ;;
-
-
-
-
-
-
-
-
-        
-
-
-
-    
-    
-    
-
-
-    
-
-
-    
 
 
 
@@ -300,9 +302,88 @@ g2D.drawString("Teleport", 0, 310);
 }
 public void change(JLabel pawn)
 {
-    pawn.setBounds(150, 100, 30, 30);
+    pawn.setBounds(150+12, 100+12, 30, 30);
+}
+ public static int SizeOfArray()
+{ int sizeofarray=0;
+    for(int i=0;i<Position.size();i++)
+    {
+        if(Position.get(i)!=100)
+        {
+            sizeofarray++;
+        }
+    }
+    return sizeofarray;
+}
+ public static CircleLabel getPawn(int index)
+ {
+      if(index==0)return pawn1;
+     else if(index==1)return pawn2;
+      else if(index==2) return  pawn3;
+        else if(index==3) return pawn4;
+      return null;
+ }
+ 
+ 
+ public static void PawnMove(int value, int index) {
+    CircleLabel pawn = getPawn(index);
+    int startPos = Position.get(index);
+
+    if (startPos + value > 100) return; // max 100
+
+    if (startPos == -1) {
+        startPos++;
+        value--;
+        pawn.setLocation(450+12, 450+12); // starting point
+        Position.set(index, startPos);
+    }
+    Position.set(index,startPos+value);
+
+    moveStep(pawn, index, startPos + 1, startPos + value);
+    // Add snake +ladder+teleport part; okk ;
+   
+ 
+    
+    
+    
+    
+   int U = Position.get(index);
+   System.out.println("this is index"+U);
 }
 
+private static void moveStep(CircleLabel pawn, int index, int current, int end) {
+    if (current > end) {
+       // Position.set(index, end); // update final position
+       // System.out.println("this is index " + index+ end);
+        return;
+    }
+
+    Point from = PointsOfAll.Paths[current - 1];
+    Point to = PointsOfAll.Paths[current];
+
+    Timer timer = new Timer(10, null);
+    timer.addActionListener(new ActionListener() {
+        int x = from.x;
+        int y = from.y;
+
+        public void actionPerformed(ActionEvent e) {
+            if (x < to.x) x++;
+            if (x > to.x) x--;
+            if (y < to.y) y++;
+            if (y > to.y) y--;
+
+            pawn.setLocation(x, y);
+
+            if (x == to.x && y == to.y) {
+                timer.stop();
+                moveStep(pawn, index, current + 1, end); // next step
+            }
+        }
+    });
+
+    timer.start();
+}
+ 
  
     
 }

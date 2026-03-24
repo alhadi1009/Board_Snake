@@ -16,10 +16,13 @@ import javax.swing.JPanel;
  */
 public class Snake extends JFrame {
  private JLabel diceResult;
+  private Dice dice = new Dice(); 
+  private int CurrentPosition=0;
+  private int Player=2;
    Snake ()
    {
       setTitle("Snake");
-      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // ✅ এই লাইন important
+      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // important
 
       setSize(1000,1000);
               setLocationRelativeTo(null);
@@ -38,7 +41,7 @@ public class Snake extends JFrame {
       JPanel adder = new JPanel();
         adder.setBackground(new Color(128,128,0));
         adder.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
-       JPanel panel = new SnakeBoard();
+       JPanel panel = new SnakeBoard(Player);
         adder.add(panel);
         this.add(adder);
         // Dice 
@@ -53,6 +56,25 @@ public class Snake extends JFrame {
         diceResult.setFont(new Font("Arial", Font.BOLD, 30));
         
         // Here Action provoded ; ;
+         diceBtn.addActionListener(e -> {
+         System.out.println("Hello World!");
+         if(Control.ControlSubstance)
+         {
+            int sizeofarray= SnakeBoard.SizeOfArray();
+             int values = dice.roll();
+                diceResult.setText(String.valueOf(values));
+                System.out.println("Dice rolled: " + values);
+                SnakeBoard.PawnMove(values,CurrentPosition);
+                if(values!=6)
+                {
+                    CurrentPosition++;
+                    CurrentPosition%=Player;
+                }
+                
+         }
+         });
+        
+        
          dicePanel.add(diceBtn);
         dicePanel.add(diceResult);
 
