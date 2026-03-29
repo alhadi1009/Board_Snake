@@ -16,7 +16,7 @@ public class PointsOfAll {
     public static ArrayList<ArrayList<Integer>> Snakes = new ArrayList<>();
    public  static ArrayList<ArrayList<Integer>> Ladders = new ArrayList<>();
    
-   public static ArrayList<Integer> Teleports = new ArrayList<>(Arrays.asList(41, 24, 79, 97, 30));
+   public static ArrayList<Integer> Teleports = new ArrayList<>(Arrays.asList(41, 24, 79, 98, 30));
 
     
     
