@@ -21,11 +21,12 @@ public class Snake extends JFrame {
     private JLabel diceResult;
     private Dice dice = new Dice();
     private int CurrentPosition = 0;
-    private int Player = 4;
+    private int Player = -1;
     ArrayList<Boolean> CheckVector;
     ArrayList<String> Conclution = new ArrayList<>();
 
-    Snake() {
+    Snake(int plyr) {
+        Player=plyr;
         setTitle("Snake");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // important
 
@@ -54,9 +55,10 @@ public class Snake extends JFrame {
         JButton diceBtn = new JButton("Roll Dice");
         diceBtn.setPreferredSize(new Dimension(120, 50));
 
+
         diceResult = new JLabel("INF");
         diceResult.setFont(new Font("Arial", Font.BOLD, 30));
-
+          
         // Here Action provoded ; ;
         diceBtn.addActionListener(e -> {
             System.out.println("Hello World!");
@@ -76,18 +78,48 @@ public class Snake extends JFrame {
                 int tgt = SnakeBoard.Position.get(CurrentPosition);
                 if (tgt == 100 && CheckVector.get(CurrentPosition)) {
                     CheckVector.set(CurrentPosition, false);
-                    if (CurrentPosition == 0) {
-                        Conclution.add("RED");
-                    } else if (CurrentPosition == 1) {
-                        Conclution.add("GREEN");
-
-                    } else if (CurrentPosition == 2) {
-                        Conclution.add("BLUE");
-
-                    } else {
-                        Conclution.add("PINK");
-
+                    switch (CurrentPosition) {
+                        case 0:
+                            Conclution.add("RED");
+                            break;
+                        case 1:
+                            Conclution.add("GREEN");
+                            break;
+                        case 2:
+                            Conclution.add("BLUE");
+                            break;
+                        default:
+                            Conclution.add("PINK");
+                            break;
                     }
+
+                }
+                if (Conclution.size() == (Player - 1)) {
+                   String Lost="";
+                   for(int i=0;i<Player;i++)
+                   {
+                       if(CheckVector.get(i))
+                       {
+                           switch (i) {
+                        case 0:
+                            Lost="RED";
+                            break;
+                        case 1:
+                            Lost="GREEN";
+                            break;
+                        case 2:
+                            Lost="BLUE";
+                            break;
+                        default:
+                     Lost="PINK";
+
+                            break;
+                    }
+                       }
+                   }
+                    this.dispose();
+
+                    new resultFrame(Conclution,Lost);
 
                 }
                 if (values != 6) {
@@ -103,8 +135,7 @@ public class Snake extends JFrame {
         });
 
         dicePanel.add(diceBtn);
-        dicePanel.add(diceResult);
-
+        dicePanel.add(diceResult);////
         adder.add(dicePanel);
 
         add(adder, BorderLayout.CENTER);
@@ -112,7 +143,10 @@ public class Snake extends JFrame {
 
     public static void main(String[] args) {
         // TODO code application logic here
-        new Snake();
+      
+      new  StartPage();
+                   
+     
     }
 
 }
