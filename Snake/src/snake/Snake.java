@@ -17,15 +17,18 @@ import javax.swing.JPanel;
  * @author Al Hadi
  */
 public class Snake extends JFrame {
+    public static Snake currentFrame;
 
     private JLabel diceResult;
     private Dice dice = new Dice();
     private int CurrentPosition = 0;
-    private int Player = -1;
-    ArrayList<Boolean> CheckVector;
-    ArrayList<String> Conclution = new ArrayList<>();
+    private static int Player = -1;
+  static  ArrayList<Boolean> CheckVector;
+  static  ArrayList<String> Conclution = new ArrayList<>();
 
     Snake(int plyr) {
+        currentFrame = this;
+        
         Player=plyr;
         setTitle("Snake");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // important
@@ -44,8 +47,8 @@ public class Snake extends JFrame {
         JPanel adder = new JPanel();
         adder.setBackground(new Color(128, 128, 0));
         adder.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
-        JPanel panel = new SnakeBoard(Player);
-        adder.add(panel);
+JPanel panel = new SnakeBoard(Player);
+adder.add(panel);
         this.add(adder);
         // Dice 
         JPanel dicePanel = new JPanel();
@@ -94,34 +97,6 @@ public class Snake extends JFrame {
                     }
 
                 }
-                if (Conclution.size() == (Player - 1)) {
-                   String Lost="";
-                   for(int i=0;i<Player;i++)
-                   {
-                       if(CheckVector.get(i))
-                       {
-                           switch (i) {
-                        case 0:
-                            Lost="RED";
-                            break;
-                        case 1:
-                            Lost="GREEN";
-                            break;
-                        case 2:
-                            Lost="BLUE";
-                            break;
-                        default:
-                     Lost="PINK";
-
-                            break;
-                    }
-                       }
-                   }
-                    this.dispose();
-
-                    new resultFrame(Conclution,Lost);
-
-                }
                 if (values != 6) {
                     CurrentPosition++;
                     CurrentPosition %= Player;
@@ -135,7 +110,7 @@ public class Snake extends JFrame {
         });
 
         dicePanel.add(diceBtn);
-        dicePanel.add(diceResult);////
+        dicePanel.add(diceResult);
         adder.add(dicePanel);
 
         add(adder, BorderLayout.CENTER);
@@ -148,5 +123,27 @@ public class Snake extends JFrame {
                    
      
     }
+    
+    
+    public static void EndGameLogic() {
+    if (Conclution.size() == (Player - 1)) {
+
+        String Lost = "";
+        for (int i = 0; i < Player; i++) {
+            if (CheckVector.get(i)) {
+                switch (i) {
+                    case 0: Lost = "RED"; break;
+                    case 1: Lost = "GREEN"; break;
+                    case 2: Lost = "BLUE"; break;
+                    default: Lost = "PINK"; break;
+                }
+            }
+        }
+
+        // Use the passed frame
+        currentFrame.dispose();  
+        new resultFrame(Conclution, Lost);
+    }
+}
 
 }

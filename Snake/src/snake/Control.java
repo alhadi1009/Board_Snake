@@ -9,5 +9,6 @@ package snake;
  * @author Al Hadi
  */
 public class Control {
- public static boolean ControlSubstance = true;   
+ public static boolean ControlSubstance = true;  
+public static boolean LastMove=false; 
 }

@@ -27,6 +27,7 @@ public class SnakeBoard extends JPanel {
 
     // Draw Static board here 
     public SnakeBoard(int Player) {
+
         setPreferredSize(new Dimension(550, 550));
         setLayout(null);
         if (Player > 0) {
@@ -374,7 +375,7 @@ public class SnakeBoard extends JPanel {
 
                 }
                 Control.ControlSubstance = true;
-
+Snake.EndGameLogic();
             }
         });
 
