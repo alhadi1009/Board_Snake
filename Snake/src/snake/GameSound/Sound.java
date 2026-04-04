@@ -22,15 +22,20 @@ public class Sound {
     private static final URL teleports;
     private static final URL footstep;
         private static final URL snakeKing;
+     private static final URL diceRoll;
 
 
     static {
         teleports = Sound.class.getClassLoader().getResource("snake/GameSound/Teleports.wav");
         footstep = Sound.class.getClassLoader().getResource("snake/GameSound/Footstep.wav");
-                snakeKing = Sound.class.getClassLoader().getResource("snake/GameSound/Snake.wav");
+        snakeKing = Sound.class.getClassLoader().getResource("snake/GameSound/Snake.wav");
+        diceRoll = Sound.class.getClassLoader().getResource("snake/GameSound/dice roll.wav");
 
         
 
+    }
+    public static void diceSystem() {
+        play(diceRoll);
     }
 
     public static void teleportSystem() {

@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import snake.GameSound.Sound;
 
 /**
  *
@@ -66,6 +67,18 @@ adder.add(panel);
         diceBtn.addActionListener(e -> {
             System.out.println("Hello World!");
             if (Control.ControlSubstance) {
+                Sound.diceSystem();
+                
+                
+                
+                new javax.swing.Timer(5000, ex -> {
+    // 50ms pore ei code run hobe
+    System.out.println("Continue execution");
+
+    ((javax.swing.Timer)ex.getSource()).stop(); // important
+}).start();
+                
+                
                 int sizeofarray = SnakeBoard.SizeOfArray();
                 System.out.println("this is size of array now " + sizeofarray);
                 int values = dice.roll();
