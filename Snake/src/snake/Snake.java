@@ -18,19 +18,20 @@ import snake.GameSound.Sound;
  * @author Al Hadi
  */
 public class Snake extends JFrame {
+
     public static Snake currentFrame;
 
     private JLabel diceResult;
     private Dice dice = new Dice();
     private int CurrentPosition = 0;
     private static int Player = -1;
-  static  ArrayList<Boolean> CheckVector;
-  static  ArrayList<String> Conclution = new ArrayList<>();
+    static ArrayList<Boolean> CheckVector;
+    static ArrayList<String> Conclution = new ArrayList<>();
 
     Snake(int plyr) {
         currentFrame = this;
-        
-        Player=plyr;
+
+        Player = plyr;
         setTitle("Snake");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // important
 
@@ -48,8 +49,8 @@ public class Snake extends JFrame {
         JPanel adder = new JPanel();
         adder.setBackground(new Color(128, 128, 0));
         adder.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 50));
-JPanel panel = new SnakeBoard(Player);
-adder.add(panel);
+        JPanel panel = new SnakeBoard(Player);
+        adder.add(panel);
         this.add(adder);
         // Dice 
         JPanel dicePanel = new JPanel();
@@ -59,26 +60,22 @@ adder.add(panel);
         JButton diceBtn = new JButton("Roll Dice");
         diceBtn.setPreferredSize(new Dimension(120, 50));
 
-
         diceResult = new JLabel("INF");
         diceResult.setFont(new Font("Arial", Font.BOLD, 30));
-          
+
         // Here Action provoded ; ;
         diceBtn.addActionListener(e -> {
             System.out.println("Hello World!");
             if (Control.ControlSubstance) {
                 Sound.diceSystem();
-                
-                
-                
-                new javax.swing.Timer(5000, ex -> {
-    // 50ms pore ei code run hobe
-    System.out.println("Continue execution");
 
-    ((javax.swing.Timer)ex.getSource()).stop(); // important
-}).start();
-                
-                
+                new javax.swing.Timer(5000, ex -> {
+
+                    System.out.println("Continue execution");
+
+                    ((javax.swing.Timer) ex.getSource()).stop();
+                }).start();
+
                 int sizeofarray = SnakeBoard.SizeOfArray();
                 System.out.println("this is size of array now " + sizeofarray);
                 int values = dice.roll();
@@ -109,7 +106,7 @@ adder.add(panel);
                             break;
                     }
 
-                }
+                }diceBtn.setText("Player  "+(CurrentPosition+1));
                 if (values != 6) {
                     CurrentPosition++;
                     CurrentPosition %= Player;
@@ -131,32 +128,38 @@ adder.add(panel);
 
     public static void main(String[] args) {
         // TODO code application logic here
-      
-      new  StartPage();
-                   
-     
-    }
-    
-    
-    public static void EndGameLogic() {
-    if (Conclution.size() == (Player - 1)) {
 
-        String Lost = "";
-        for (int i = 0; i < Player; i++) {
-            if (CheckVector.get(i)) {
-                switch (i) {
-                    case 0: Lost = "RED"; break;
-                    case 1: Lost = "GREEN"; break;
-                    case 2: Lost = "BLUE"; break;
-                    default: Lost = "PINK"; break;
+        new StartPage();
+
+    }
+
+    public static void EndGameLogic() {
+        if (Conclution.size() == (Player - 1)) {
+
+            String Lost = "";
+            for (int i = 0; i < Player; i++) {
+                if (CheckVector.get(i)) {
+                    switch (i) {
+                        case 0:
+                            Lost = "RED";
+                            break;
+                        case 1:
+                            Lost = "GREEN";
+                            break;
+                        case 2:
+                            Lost = "BLUE";
+                            break;
+                        default:
+                            Lost = "PINK";
+                            break;
+                    }
                 }
             }
-        }
 
-        // Use the passed frame
-        currentFrame.dispose();  
-        new resultFrame(Conclution, Lost);
+            // Use the passed frame
+            currentFrame.dispose();
+            new resultFrame(Conclution, Lost);
+        }
     }
-}
 
 }
